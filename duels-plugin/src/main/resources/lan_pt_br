@@ -1,0 +1,504 @@
+# NÃO EDITE ESSE VALOR!
+config-version: 11
+
+# Define placeholders utilizáveis em qualquer mensagem abaixo.
+# Exemplo: Adicionando 'PREFIX: "[Legal]"' abaixo e colocando '{PREFIX}' em uma mensagem exibirá '[Legal]' quando a mensagem for enviada no jogo.
+STRINGS:
+  PREFIX: '&9[Duels]'
+  LINE: '&9&m------------------------------------&r'
+  HALF_LINE: '&9&m----------------&r'
+  FAIL_PREFIX: '&cFalha ao iniciar a partida:'
+
+
+GENERAL:
+  true: '&atrue'
+  false: '&cfalse'
+  enabled: '&aativo'
+  disabled: '&cdesativado'
+  not-selected: 'Não Selecionado'
+  random: 'Aleatório'
+  none: 'Nenhum'
+  kit-selector: 'Seletor de Kit'
+  arena-selector: 'Seletor de Arena'
+  item-betting: 'Aposta de Item'
+  betting: 'Apostando'
+
+
+ERROR:
+  no-permission: '{PREFIX} &cNão! Você está sem a seguinte permissão: ''%permission%'''
+  data:
+    load-failure: '{PREFIX} &cNão foi possível carregar suas estatísticas de duelo. Por favor, tente reconectar-se.'
+    not-loaded: '{PREFIX} &cUsuários ainda estão carregando, tente novamente mais tarde.'
+    not-found: '{PREFIX} &c%name% não tem estatísticas de duelo disponíveis.'
+  top:
+    no-data-available: '{PREFIX} &cNão há dados disponíveis.'
+  player:
+    not-found: '{PREFIX} &c%name% não está online.'
+    no-longer-online: '{PREFIX} &cEsse jogador não está mais online.'
+  arena:
+    not-found: '{PREFIX} &cNão existe arena com o nome ''%name%''.'
+    already-exists: '{PREFIX} &cUma arena chamada ''%name%'' já existe.'
+    delete-failure: '{PREFIX} &cNão é possível excluir uma arena que está em uso. Por favor, desative primeiro usando o comando ''/duels toggle %name%'''
+    invalid-position: '{PREFIX} &cPosição deve ser 1 ou 2.'
+    no-position-set: '{PREFIX} &cArena ''%name%'' não tem posições definidas.'
+  kit:
+    not-found: '{PREFIX} &cNão existe kit com o nome ''%name%''.'
+    already-exists: '{PREFIX} &cUm kit chamado ''%name%'' já existe.'
+    empty-hand: '{PREFIX} &cVocê deve estar segurando um item para usar este comando.'
+  duel:
+    is-self: '{PREFIX} &cVocê não pode duelar consigo mesmo.'
+    inventory-not-empty: '{PREFIX} &cVocê deve ter um inventário vazio para usar este comando.'
+    in-creative-mode: '{PREFIX} &cVocê não pode duelar no modo criativo.'
+    in-blacklisted-world: '{PREFIX} &cVocê não pode duelar neste mundo.'
+    is-tagged: '{PREFIX} &cVocê não pode duelar enquanto estiver em combate.'
+    not-in-duelzone: '{PREFIX} &cVocê só pode duelar nas seguintes regiões: %regions%'
+    requests-disabled: '{PREFIX} &c%name% atualmente não está aceitando pedidos de duelo.'
+    already-has-request: '{PREFIX} &cVocê já enviou um pedido para %name%.'
+    no-request: '{PREFIX} &cVocê não tem um pedido de %name%.'
+    already-in-match:
+      sender: '{PREFIX} &cVocê não pode fazer isso enquanto estiver em um duelo.'
+      target: '{PREFIX} &c%name% já está em um duelo.'
+    already-in-queue: '{PREFIX} &cVocê não pode fazer isso enquanto estiver em uma fila.'
+    prevent-teleportation: '{PREFIX} &cNão é possível teleportar para um jogador em um duelo.'
+    mode-unselected: '{PREFIX} &cVocê deve escolher um kit ou ativar o modo de inventário próprio.'
+    mode-fixed: '{PREFIX} &cVocê não tem permissão para desativar o modo de inventário próprio.'
+  spectate:
+    already-spectating:
+      sender: '{PREFIX} &cVocê não pode fazer isso enquanto estiver no modo espectador.'
+      target: '{PREFIX} &c%name% está no modo espectador.'
+    not-in-match: '{PREFIX} &c%name% não está em um duelo.' 
+  setting:
+    disabled-option: '{PREFIX} &c%option% está atualmente desativada.'
+    arena-not-applicable: '{PREFIX} &cVocê não pode usar o kit %kit% na arena %arena%.'
+  inventory-view:
+    not-a-uuid: '{PREFIX} &c%input% não é um UUID válido.'
+    not-found: '{PREFIX} &cNão existe inventário com o UUID ''%uuid%''.'
+  queue:
+    not-found: '{PREFIX} &cNão existe fila com kit %kit% e aposta $%bet_amount%.'
+    already-exists: '{PREFIX} &cUma fila com kit ''%kit%'' e aposta $%bet_amount% já existe.'
+    already-in: '{PREFIX} &cVocê já está em uma fila!'
+    not-in-queue: '{PREFIX} &cVocê não está em uma fila.'
+    not-enough-money: '{PREFIX} &cVocê precisa de $%bet_amount% para entrar nessa fila.'
+    no-queues-available: '{PREFIX} &cNão há filas disponíveis.'
+  sign:
+    not-a-sign: '{PREFIX} &cO bloco que você está olhando não é uma placa!'
+    not-found: '{PREFIX} &cEssa placa não é uma placa de fila!'
+    already-exists: '{PREFIX} &cEssa placa já é uma placa de fila! Para remover, use o comando ''/duels delsign'''
+    cancel-break: '{PREFIX} &cVocê não pode quebrar uma placa de fila manualmente! Por favor, use o comando ''/duels delsign'''
+  sound:
+    not-found: '{PREFIX} &cNão existe som com o nome ''%name%''.'
+  command:
+    invalid-sub-command: '{PREFIX} &c''%argument%'' não é um subcomando válido. Por favor digite ''/%command%'' para ajuda.'
+    invalid-option: '{PREFIX} &c''%option%'' não é uma opção válida. Opções disponíveis são: %available_options%'
+    invalid-action: '{PREFIX} &c''%action%'' não é uma ação válida. Ações disponíveis são: %available_actions%'
+    not-enough-money: '{PREFIX} &cVocê não tem dinheiro suficiente para apostar!'
+    lobby-save-failure: '{PREFIX} &cNão foi possível salvar a localização do lobby. Por favor, verifique o console para mais informações.'
+    name-not-alphanumeric: '{PREFIX} &c''%name%'' não é alfanumérico.'
+
+
+COMMAND:
+  duel:
+    usage:
+    - '{LINE}'
+    - '&f/%command% [player] &e- &7Envia um pedido de duelo para o jogador.'
+    - '&f/%command% [player] <quantia> &e- &7Envia um pedido de duelo com uma aposta.'
+    - '&f/%command% [aceita | negar] [player] &e- &7Aceita ou nega um pedido de duelo.'
+    - '&f/%command% stats <nome> &e- &7Exibe suas estatísticas de duelo.'
+    - '&f/%command% toggle &e- &7Ativa ou desativa o recebimento de pedidos de duelo.'
+    - '&f/%command% top [-|vitórias|derrotas|kit] &e- &7Exibe as principais vitórias, derrotas ou classificação para o kit.'
+    - '{LINE}'
+    request:
+      send:
+        sender:
+        - '{LINE}'
+        - '&7Pedido de duelo enviado para &f%name%&7.'
+        - '&6- &7Kit: &3%kit%'
+        - '&7Inventário Próprio: &r%own_inventory%'
+        - '&6- &7Arena: &e%arena%'
+        - '&6- &7Aposta: &6$%bet_amount%'
+        - '&6- &7Aposta de Item: &r%item_betting%'
+        - '{LINE}'
+        receiver:
+        - '{LINE}'
+        - '&7Pedido de duelo recebido de &f%name%&7.'
+        - '&6- &7Kit: &3%kit%'
+        - '&7Inventário Próprio: &r%own_inventory%'
+        - '&6- &7Arena: &e%arena%'
+        - '&6- &7Aposta: &6$%bet_amount%'
+        - '&6- &7Aposta de Item: &r%item_betting%'
+        clickable-text:
+          info:
+            text: '&7Clique para '
+            hover-text: ''
+          accept:
+            text: '&a&l[ACEITAR] '
+            hover-text: '&7Clique para &aaceitar &7este pedido.'
+          deny:
+            text: '&c&l[NEGAR]'
+            hover-text: '&7Clique para &cnegar &7este pedido.'
+          extra:
+            text: '{LINE}'
+            hover-text: ''
+      accept:
+        sender: '{PREFIX} &f%name% &7aceitou seu pedido de duelo.'
+        receiver: '{PREFIX} &7Aceitou o pedido de duelo de &f%name%&7.'
+      deny:
+        sender: '{PREFIX} &7Seu pedido de duelo para &f%name% &7foi negado.'
+        receiver: '{PREFIX} &7Negou o pedido de duelo de &f%name%&7.'
+    stats:
+      displayed:
+      - '{LINE}'
+      - '&7Estatísticas de &f%name% &e-'
+      - '&7Vitórias: &a%wins%'
+      - '&7Derrotas: &c%losses%'
+      - '&7Razão V/D: &b%wl_ratio%'
+      - '&7Pedidos: &r%requests_enabled%'
+      # NOTE: Ratings will only display if either 'display-kit-ratings' or 'display-nokit-rating' is enabled in the configuration.
+      rating:
+        header: '&7Classificações &e-'
+        format: '&f%tipo%&7: &b%rating%'
+        footer: ''
+      # NOTE: Past matches will only display if 'display-past-matches' is enabled in the configuration.
+      match:
+        header: '&7Partidas Recentes &e-'
+        format: '&a%vencedor% &fvs &c%perdedor% &6[Hover Me!]'
+        hover-text:
+        - '&7Kit: &3%kit%'
+        - '&7Duração: &a%duração%'
+        - '&7Tempo: &f%tempo% atrás'
+        - '&7Saúde: &d%saúde%❤'
+        footer: '{LINE}'
+    toggle:
+      enabled: '{PREFIX} &aVocê está recebendo pedidos de duelo agora.'
+      disabled: '{PREFIX} &cVocê não está mais aceitando pedidos de duelo.'
+    top:
+      next-update: '{PREFIX} &7Próxima atualização: &f%restante%'
+      header: '{HALF_LINE} &7Top &f10 &7%tipo% {HALF_LINE}'
+      display-format: '&e%rank%. &f%name% &e- &f%score% &7%identificador%'
+      footer: '{HALF_LINE} &7Top &f10 &7%tipo% {HALF_LINE}'
+
+  duels:
+    usage:
+    - '{LINE}'
+    - '&f/%command% help &e- &7Exibe esta página.'
+    - '&f/%command% help arena &e- &7Exibe uma lista de comandos de arena.'
+    - '&f/%command% help kit &e- &7Exibe uma lista de comandos de kit.'
+    - '&f/%command% help queue &e- &7Exibe uma lista de comandos de fila.'
+    - '&f/%command% help sign &e- &7Exibe uma lista de comandos de placa.'
+    - '&f/%command% help user &e- &7Exibe uma lista de comandos de edição de usuário.'
+    - '&f/%command% help extra &e- &7Exibe uma lista de comandos extras.'
+    - '{LINE}'
+    help:
+      arena:
+      - '{HALF_LINE} &fComandos de Arena {HALF_LINE}'
+      - '&f/%command% create [name] &e- &7Cria uma arena com o nome fornecido.'
+      - '&f/%command% set [name] [1|2] &e- &7Define a posição de teleporte de uma arena.'
+      - '&f/%command% delete [name] &e- &7Exclui uma arena.'
+      - '&f/%command% info [name] &e- &7Exibe uma lista de informações sobre a arena selecionada.'
+      - '&f/%command% toggle [name] &e- &7Ativa ou desativa uma arena.'
+      - '&f/%command% tp [name] <1|2> &e- &7Teleporta para uma arena.'
+      - '&f/%command% list &e- &7Exibe a lista de todas as arenas.'
+      - '{HALF_LINE} &fComandos de Arena {HALF_LINE}'
+      kit:
+      - '{HALF_LINE} &fComandos de Kit {HALF_LINE}'
+      - '&f/%command% savekit <-o> [name] &e- &7Salva um kit com o nome fornecido.'
+      - '&f/%command% loadkit [name] &e- &7Carrega o kit selecionado para o seu inventário.'
+      - '&f/%command% deletekit [name] &e- &7Exclui um kit.'
+      - '&f/%command% setitem [name] &e- &7Define o item exibido para o kit selecionado.'
+      - '&f/%command% options [kit] &e- &7Abre o menu de opções para o kit selecionado.'
+      - '&f/%command% bind [kit] &e- &7Abre o menu de vinculação de arena para o kit selecionado.'
+      - '&f/%command% list &e- &7Exibe a lista de todos os kits.'
+      - '{HALF_LINE} &fComandos de Kit {HALF_LINE}'
+      queue:
+      - '{HALF_LINE} &fComandos de Fila de Espera {HALF_LINE}'
+      - '&f/%command% createqueue [bet] [-|kit] &e- &7Cria uma fila de espera com aposta e kit.'
+      - '&f/%command% deletequeue &e- &7Exclui a fila de espera com aposta e kit.'
+      - '&f/%command% list &e- &7Exibe uma lista de filas de espera disponíveis.'
+      - '{HALF_LINE} &fComandos de Fila de Espera {HALF_LINE}'
+      sign:
+      - '{HALF_LINE} &fComandos de Placa de Fila de Espera {HALF_LINE}'
+      - '&f/%command% addsign [bet] [-|kit] &e- &7Cria uma placa de fila de espera com aposta e kit.'
+      - '&f/%command% delsign &e- &7Exclui a placa de fila de espera que você está olhando.'
+      - '&f/%command% list &e- &7Exibe uma lista de placas de fila de espera.'
+      - '{HALF_LINE} &fComandos de Placa de Fila de Espera {HALF_LINE}'
+      user:
+      - '{HALF_LINE} &fComandos de Edição de Usuário {HALF_LINE}'
+      - '&f/%command% setrating [name] [-|kit] [amount] &e- &7Define a classificação do jogador para o kit.'
+      - '&f/%command% edit [name] [add|remove|set] [wins|losses] [amount] &e- &7Edita as estatísticas do jogador.'
+      - '&f/%command% resetrating [name] [-|kit|all] &e- &7Redefine todas as classificações ou a classificação especificada do jogador para o kit.'
+      - '&f/%command% reset [name] &e- &7Redefine as estatísticas do jogador.'
+      - '{HALF_LINE} &fComandos de Edição de Usuário {HALF_LINE}'
+      extra:
+      - '{HALF_LINE} &fComandos Extras {HALF_LINE}'
+      - '&f/%command% setlobby &e- &7Define a localização do lobby de duelo.'
+      - '&f/%command% lobby &e- &7Teleporta para o lobby de duelo.'
+      - '&f/%command% playsound [name] &e- &7Toca o som selecionado se definido no config.'
+      - '&f/%command% reload <module> &e- &7Recarrega o plugin ou o módulo especificado.'
+      - '{HALF_LINE} &fComandos Extras {HALF_LINE}'
+    create: '{PREFIX} &7Arena &e%name% &7foi criada com sucesso. Para definir pontos de spawn para esta arena, use o comando &f/duels set %name% 1'
+    delete: '{PREFIX} &7Arena &e%name% &7foi removida com sucesso.'
+    set: '{PREFIX} &7Definir posição &f%position% &7para arena &e%name% &7em &f%location%&7.'
+    toggle: '{PREFIX} &7Arena &e%name% &7agora está &r%state%&7.'
+    teleport: '{PREFIX} &7Você foi teleportado para a posição da arena &e%name%&7 &f%position%&7.'
+    save-kit: '{PREFIX} &7Kit &3%name% &7foi salvo com sucesso.'
+    delete-kit: '{PREFIX} &7Kit &3%name% &7foi removido com sucesso.'
+    load-kit: '{PREFIX} &7Kit &3%name% &7foi carregado em seu inventário.'
+    set-item: '{PREFIX} &7Item exibido do kit &3%name%&7 foi alterado para o item que você está segurando.'
+    create-queue: '{PREFIX} &7Criada uma fila com kit &3%kit% &7e aposta &6$%bet_amount%&7.'
+    delete-queue: '{PREFIX} &7Fila excluída com kit &3%kit% &7e aposta &6$%bet_amount%&7.'
+    add-sign: '{PREFIX} &7Criada placa de fila em &f%location% &7com kit &3%kit% &7e aposta &6$%bet_amount%&7.'
+    del-sign: '{PREFIX} &7Placa de fila excluída em &f%location% &7com kit &3%kit% &7e aposta &6$%bet_amount%&7.'
+    set-lobby: '{PREFIX} &7Lobby de duelo definido em sua localização atual.'
+    lobby: '{PREFIX} &7Você foi teleportado para o lobby!'
+    edit: '{PREFIX} &7A seguinte ação foi executada para &f%name%&7: &f%action% %amount% %type%'
+    set-rating: '{PREFIX} &7A classificação de &f%name%&7 para o kit &3%kit% &7foi definida como &a%rating%&7.'
+    reset-rating: '{PREFIX} &7Redefinida a classificação de &f%name%&7 para o kit &3%kit%&7.'
+    reset: '{PREFIX} &7Redefinidas as estatísticas de &f%name%&7.'
+    info:
+    - '{HALF_LINE} &7Arena &e%name% {HALF_LINE}'
+    - '&7Em Uso: &r%in_use%'
+    - '&7Desativada: &r%disabled%'
+    - '&7Kits Associados: &3%kits%'
+    - '&7Posições: &f%positions%'
+    - '&7Jogadores: &f%players%'
+    - '{HALF_LINE} &7Arena &e%name% {HALF_LINE}'
+    list:
+    - '{LINE}'
+    - '&4VERMELHO ESCURO&7: Arena desativada'
+    - '&9AZUL&7: Arena sem posições de spawn definidas'
+    - '&aVERDE&7: Arena disponível'
+    - '&cVERMELHO&7: Arena em uso'
+    - '&7Arenas: &r%arenas%'
+    - '&7Kits: &f%kits%'
+    - '&7Filas: &b%queues%'
+    - '&7Placas de Fila: &f%queue_signs%'
+    - '&7O lobby de duelo está localizado em &f%lobby%&7.'
+    - '{LINE}'
+
+  spectate:
+    usage:
+    - '{LINE}'
+    - '&f/spectate [player] &e- &7Especta um jogador em duelo.'
+    - '{LINE}'
+    start-spectate: '{PREFIX} &7Agora espectando &f%name%&7 vs &f%opponent%&7 na arena &e%arena%&7. Digite &f/spectate &7para parar de espectar.'
+    stop-spectate: '{PREFIX} &7Você não está mais espectando &f%name%&7.'
+
+  sub-command-usage: '{PREFIX} &f/%command% %usage% &e- &7%description%'
+
+
+DUEL:
+  start-failure:
+    mode-unselected: '{FAIL_PREFIX} &cVocê deve escolher um kit ou habilitar seu próprio inventário.'
+    player-is-dead: '{FAIL_PREFIX} Você ou seu oponente não está vivo!'
+    in-blacklisted-world: '{FAIL_PREFIX} Você ou seu oponente está em um mundo na lista negra!'
+    is-tagged: '{FAIL_PREFIX} Você ou seu oponente está em combate!'
+    player-moved: '{FAIL_PREFIX} Você ou seu oponente se moveu após enviar/aceitar o pedido!'
+    not-in-duelzone: '{FAIL_PREFIX} Você ou seu oponente saiu da zona de duelo ao enviar/aceitar o pedido!'
+    in-creative-mode: '{FAIL_PREFIX} Você ou seu oponente está no modo criativo!'
+    no-arena-available: '{FAIL_PREFIX} Nenhuma arena está disponível no momento. Por favor, tente novamente mais tarde.'
+    arena-in-use: '{FAIL_PREFIX} Essa arena já está em uso. Por favor, selecione uma arena diferente.'
+    arena-not-applicable: '{FAIL_PREFIX} Você não pode usar o kit %kit% nesta arena.'
+    not-enough-money: '{FAIL_PREFIX} Você ou seu oponente não tem $%bet_amount%.'
+  prevent:
+    item-drop: '&cVocê não pode largar itens enquanto estiver em um duelo.'
+    command: '&cVocê não pode usar ''%command%'' enquanto estiver em um duelo.'
+    teleportation: '&cVocê não pode teleportar enquanto estiver em um duelo.'
+    inventory-open: '&cVocê não pode abrir inventários enquanto estiver em um duelo.'
+  projectile-hit-message: '{PREFIX} &f%name% &7está agora com &d%health%❤&7!'
+  on-end:
+    tie: '{PREFIX} &7Empate!'
+    plugin-disable: '{PREFIX} &cO plugin está desabilitando! Finalizando a partida automaticamente.'
+    opponent-defeat: '{PREFIX} &f%winner% &a(%winner_rating%) (+%change%) &7derrotou &f%loser% &c(%loser_rating%) (-%change%) &7no kit &3%kit% &7com &d%health%❤'
+  inventories:
+    message: '&7Inventários (clique no nome para visualizar): '
+    name-color: '&b'
+  reward:
+    money:
+      message: '{PREFIX} &7Você recebeu &6$%money% &7por vencer contra &f%name%&7!'
+      title: '&eVOCÊ GANHOU &6$%money%&e!'
+    items:
+      message: '{PREFIX} &7Você recebeu os itens de &f%name%&7 por vencer!'
+
+
+QUEUE:
+  prevent:
+    command: '&cVocê não pode usar ''%command%'' enquanto estiver na fila.'
+  add: '{PREFIX} &7Você foi adicionado à fila para o kit &3%kit% &7e apostou &6$%bet_amount%&7. Clique na placa novamente ou digite &f/queue leave &7para sair da fila.'
+  remove: '{PREFIX} &7Você foi removido da fila.'
+  found-opponent: '{PREFIX} &7Oponente encontrado: &f%name%&7! Iniciando partida com o kit &3%kit% &7e uma aposta de &6$%bet_amount%&7...'
+
+
+SIGN:
+  format:
+  - '&a[Clique para Entrar]'
+  - '&3%kit%&f:&e$%bet_amount%'
+  - '&f&l%in_queue% NA FILA'
+  - '&f&l%in_match% EM PARTIDA'
+
+
+SPECTATE:
+  arena-broadcast: '{PREFIX} &f%name% &7está agora assistindo a partida!'
+  match-end: '{PREFIX} &7A partida que você estava assistindo terminou.'
+  prevent:
+    command: '&cVocê não pode usar ''%command%'' enquanto estiver em modo espectador.'
+    teleportation: '&cVocê não pode se teleportar enquanto estiver em modo espectador.'
+
+
+GUI:
+  settings:
+    title: Configurações do Pedido
+    buttons:
+      details:
+        name: '&9Detalhes do Pedido'
+        lore:
+        - '&7Oponente: &f%opponent%'
+        - '&7Kit: &3%kit%'
+        - '&7Inventário Próprio: &r%own_inventory%'
+        - '&7Arena: &e%arena%'
+        - '&7Apostar Itens: &r%item_betting%'
+        - '&7Aposta: &6$%bet_amount%'
+        - ' '
+        - '&7Para alterar a aposta'
+        - '&7digite'
+        - '&b/duel %opponent% [quantidade]'
+      kit-selector:
+        name: '&9Seleção de Kit'
+        lore:
+        - '&7Kit Selecionado: &3%kit%'
+        - ' '
+        - '&aClique para Mudar o Kit!'
+        lore-no-permission:
+        - '&cVocê não tem permissão para'
+        - '&cusar esta opção.'
+      use-own-inventory:
+        name: '&9Usar Inventário Próprio'
+        lore:
+        - '&7Inventário Próprio: &r%own_inventory%'
+        - ' '
+        - '&aClique para Alternar o Inventário Próprio!'
+        lore-no-permission:
+        - '&cVocê não tem permissão para'
+        - '&cusar esta opção.'
+      arena-selector:
+        name: '&9Seleção de Arena'
+        lore:
+        - '&7Arena Selecionada: &e%arena%'
+        - ' '
+        - '&aClique para Mudar a Arena!'
+        lore-no-permission:
+        - '&cVocê não tem permissão para'
+        - '&cusar esta opção.'
+      item-betting:
+        name: '&9Permitir Apostas de Itens'
+        lore:
+        - '&7Apostar Itens: &r%item_betting%'
+        - ' '
+        - '&aClique para Alternar a Aposta de Itens!'
+        lore-no-permission:
+        - '&cVocê não tem permissão para'
+        - '&cusar esta opção.'
+      send:
+        name: '&a&lENVIAR SOLICITAÇÃO'
+      cancel:
+        name: '&c&lCANCELAR'
+  kit-selector:
+    title: Seleção de Kit
+    buttons:
+      previous-page:
+        name: '&aPágina Anterior'
+      next-page:
+        name: '&aPróxima Página'
+      empty:
+        name: '&cEsta página está vazia.'
+  arena-selector:
+    title: Seleção de Arena
+    buttons:
+      arena:
+        name: '&e%name%'
+        lore-available:
+        - '&aDisponível'
+        lore-unavailable:
+        - '&cIndisponível'
+      previous-page:
+        name: '&aPágina Anterior'
+      next-page:
+        name: '&aPróxima Página'
+      empty:
+        name: '&cEsta página está vazia.'
+  queues:
+    title: Filas Disponíveis
+    buttons:
+      queue:
+        name: '&3%kit%'
+        lore:
+        - '&7Aposta: &6$%bet_amount%'
+        - '&7Na Fila: &f%in_queue%'
+        - '&7Em Jogo: &f%in_match%'
+        - ' '
+        - '&a&lClique para Entrar na Fila!'
+      previous-page:
+        name: '&aPágina Anterior'
+      next-page:
+        name: '&aPróxima Página'
+      empty:
+        name: '&cEsta página está vazia.'
+  item-betting:
+    title: O Vencedor Leva Tudo!
+    buttons:
+      head:
+        name: '&e%name%'
+      state:
+        name-ready: '&a&lPRONTO'
+        name-not-ready: '&7&lNÃO PRONTO'
+      details:
+        name: '&9Detalhes da Partida'
+        lore:
+        - '&7Kit: &3%kit%'
+        - '&7Arena: &e%arena%'
+        - '&7Aposta: &6$%bet_amount%'
+      cancel:
+        name: '&c&lCLIQUE PARA CANCELAR'
+        lore:
+        - '&7Clique ou feche o inventário'
+        - '&7para cancelar a partida.'
+  inventory-view:
+    title: '&e%name%'
+    buttons:
+      head:
+        name: '&e%name%'
+      potion-counter:
+        name: '&d%potions% Poções de Vida'
+      effects:
+        name: '&bEfeitos de Poção'
+        lore-format: '&7%type% %amplifier% (%duration%s)'
+      hunger:
+        name: '&6%hunger% barras'
+      health:
+        name: '&c%health% ❤'
+  options:
+    title: 'Kit: %kit%'
+    buttons:
+      option:
+        name: '&b%name%'
+        lore:
+        - ' '
+        - '&7Status: &r%state%'
+        - ' '
+        - '&r&lCLIQUE PARA ALTERNAR'
+  bind:
+    title: 'Kit: %kit%'
+    buttons:
+      arena:
+        name: '&e%arena%'
+        lore-bound:
+        - '&7Kits Vinculados: &3%kits%'
+        - ' '
+        - '&a&lVINCULADO'
+        - ' '
+        - '&r&lCLIQUE PARA ALTERNAR'
+        lore-not-bound:
+        - '&7Kits Vinculados: &3%kits%'
+        - ' '
+        - '&c&lNÃO VINCULADO'
+        - ' '
+        - '&r&lCLIQUE PARA ALTERNAR'
